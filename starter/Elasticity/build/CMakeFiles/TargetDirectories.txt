@@ -1,0 +1,5 @@
+/home/ysy/FENGSim/starter/Elasticity/build/CMakeFiles/edit_cache.dir
+/home/ysy/FENGSim/starter/Elasticity/build/CMakeFiles/rebuild_cache.dir
+/home/ysy/FENGSim/starter/Elasticity/build/src/M++/CMakeFiles/ElasticitySolver.dir
+/home/ysy/FENGSim/starter/Elasticity/build/src/M++/CMakeFiles/edit_cache.dir
+/home/ysy/FENGSim/starter/Elasticity/build/src/M++/CMakeFiles/rebuild_cache.dir

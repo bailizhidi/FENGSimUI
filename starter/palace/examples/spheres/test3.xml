@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Electromagnetism>
+  <Problem>Electrostatic</Problem>
+  <Materials>
+    <domain1>
+      <Attributes>16</Attributes>
+      <Permittivity>1</Permittivity>
+    </domain1>
+    <domain2>
+      <Attributes>17</Attributes>
+      <Permittivity>2</Permittivity>
+    </domain2>
+  </Materials>
+  <Boundaries>
+    <up>
+      <Ground>
+        <Attributes>14</Attributes>
+      </Ground>
+    </up>
+    <down>
+      <Terminal>
+        <Attributes>13</Attributes>
+      </Terminal>
+    </down>
+    <around>
+      <ZeroCharge>
+        <Attributes>15</Attributes>
+      </ZeroCharge>
+    </around>
+  </Boundaries>
+</Electromagnetism>

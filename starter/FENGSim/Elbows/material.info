@@ -1,0 +1,5 @@
+---
+Tube Material: /home/ysy/FENGSim/starter/FENGSim/Elbows/materials/AusteniticStainlessSteel.FCMat
+Rotary Material: /home/ysy/FENGSim/starter/FENGSim/Elbows/materials/AluminumCastAlloy.FCMat
+Fixed Material: /home/ysy/FENGSim/starter/FENGSim/Elbows/materials/Ti-6Al-4V.FCMat
+Arc Material: /home/ysy/FENGSim/starter/FENGSim/Elbows/materials/Brass.FCMat
