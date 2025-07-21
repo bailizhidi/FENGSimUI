@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# >>> the original dialog from https://invisible-island.net/dialog/
+# >>> there are so many samples in the codes of dialig, i could find
+# >>> setup-vars setup-tempfile report-tempfile report-*
+
+# >>> i could find the introduction of dialog from https://linuxcommand.org/lc3_adv_dialog.php
+# >>> and https://pythondialog.sourceforge.io/doc/widgets.html
+
+: "${DIALOG=dialog}"
+
+: "${DIALOG_OK=0}"
+: "${DIALOG_CANCEL=1}"
+: "${DIALOG_HELP=2}"
+: "${DIALOG_EXTRA=3}"
+: "${DIALOG_ITEM_HELP=4}"
+: "${DIALOG_TIMEOUT=5}"
+: "${DIALOG_ESC=255}"
+
+: "${SIG_NONE=0}"
+: "${SIG_HUP=1}"
+: "${SIG_INT=2}"
+: "${SIG_QUIT=3}"
+: "${SIG_KILL=9}"
+: "${SIG_TERM=15}"
+
+tempfile=$PWD/tui_tmp.txt
+
+$DIALOG --clear \
+	--title "FENGSim" \
+	--visit-items \
+	--buildlist "" 20 60 100 \
+	"1" "NSM/extern/Karamelo" "off" \
+	2> $tempfile
+
+returncode=$?
+
+case "${returncode:-0}" in
+  $DIALOG_OK)
+    echo "Result: `cat "$tempfile"`";;
+  $DIALOG_CANCEL)
+    echo "Cancel pressed.";;
+  $DIALOG_HELP)
+    echo "Help pressed: `cat "$tempfile"`";;
+  $DIALOG_EXTRA)
+    echo "Extra button pressed.";;
+  $DIALOG_ITEM_HELP)
+    echo "Item-help button pressed: `cat "$tempfile"`";;
+  $DIALOG_TIMEOUT)
+    echo "Timeout expired.";;
+  $DIALOG_ESC)
+    if test -s "$tempfile" ; then
+      cat "$tempfile"
+    else
+      echo "ESC pressed."
+    fi
+    ;;
+  *)
+    echo "Return code was $returncode";;
+esac
+
+clear

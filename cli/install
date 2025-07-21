@@ -1,0 +1,99 @@
+#!/bin/bash
+
+filename=$PWD
+homepath="${filename%FENGSim*}"
+homepath+=FENGSim
+echo $homepath
+cd $homepath
+cd cli
+
+# basic
+sudo apt update
+sudo apt -y install cmake
+sudo apt -y install libfreetype-dev
+sudo apt -y install gfortran
+sudo apt -y install liblapack-dev
+sudo apt -y install libsuperlu-dev
+sudo apt -y install libopenmpi-dev
+sudo apt -y install p7zip-full dialog g++-10
+
+# qt install
+rm -rf $PWD/../toolkit/Tools/qt/5.12.12
+rm -rf $PWD/../toolkit/Tools/qt/icu
+rm -rf $PWD/../toolkit/Tools/qt/qtcreator/bin
+rm -rf $PWD/../toolkit/Tools/qt/qtcreator/lib
+rm -rf $PWD/../toolkit/Tools/qt/qtcreator/libexec
+rm -rf $PWD/../toolkit/Tools/qt/qtcreator/share
+7za x ../toolkit/Tools/qt/5.12.12.7z -o/$PWD/../toolkit/Tools/qt
+7za x ../toolkit/Tools/qt/icu.7z -o/$PWD/../toolkit/Tools/qt
+7za x ../toolkit/Tools/qt/qtcreator/bin.7z -o/$PWD/../toolkit/Tools/qt/qtcreator
+7za x ../toolkit/Tools/qt/qtcreator/lib.7z -o/$PWD/../toolkit/Tools/qt/qtcreator
+7za x ../toolkit/Tools/qt/qtcreator/libexec.7z -o/$PWD/../toolkit/Tools/qt/qtcreator
+7za x ../toolkit/Tools/qt/qtcreator/share.7z -o/$PWD/../toolkit/Tools/qt/qtcreator
+
+sudo apt -y install libxcb-xinerama0-dev
+sudo apt -y install libpcre2-dev
+sudo apt -y install build-essential
+sudo apt -y install libgl1-mesa-dev
+sudo apt -y install libglu1-mesa-dev
+sudo apt -y install freeglut3-dev
+sudo apt -y install libxcb-xinput-dev
+sudo apt -y install g++
+
+# cgal
+sudo apt -y install libgmp-dev
+sudo apt -y install libmpfr-dev
+sudo apt -y install libboost-all-dev
+
+sed -i 11c"<value type=\"QString\" key=\"QMakePath\">"$PWD/../toolkit/Tools/qt/5.12.12/bin/qmake"</value>" $PWD/../toolkit/Tools/qt/qtcreator/share/qtcreator/QtProject/qtcreator/qtversion.xml
+
+# vtk install
+cd ../toolkit/Geometry/vtk
+./install.sh
+
+# oce install
+cd ../oce
+./install.sh
+
+# gmsh install
+cd ../gmsh
+./install.sh
+
+# cgal install
+cd ../cgal
+./install.sh
+
+# pcl install
+sudo apt -y install libeigen3-dev
+sudo apt -y install libflann-dev
+
+cd ../pcl
+./install.sh
+
+# starter:ale
+cd ../../../starter/Elasticity
+mkdir build
+cd build
+cmake ..
+make
+
+# starter:cgal
+cd ../../CGAL
+mkdir data/output
+mkdir build
+cd build
+cmake ..
+make
+
+# starter:gdt
+cd ../../GDT
+mkdir build
+cd build
+cmake ..
+make
+
+cd ../../../cli
+LD_LIBRARY_PATH=$PWD/../toolkit/Tools/qt/icu/usr/local/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/../toolkit/Tools/qt/5.12.12/plugins
+export LD_LIBRARY_PATH
+./../toolkit/Tools/qt/qtcreator/bin/qtcreator ./../starter/FENGSim/FENGSim.pro

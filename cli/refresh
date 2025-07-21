@@ -1,0 +1,69 @@
+#!/bin/bash
+
+filename=$PWD
+homepath="${filename%FENGSim*}"
+homepath+=FENGSim
+echo $homepath
+
+cd $homepath
+git pull origin main
+
+echo ">>> docs"
+cd docs
+git checkout main
+git pull origin main
+cd ..
+
+cd toolkit
+echo ">>> MultiX"
+cd MultiX
+git checkout main
+git pull origin main
+cd ..
+
+echo ">>> CFD"
+cd CFD
+git checkout main
+git pull origin main
+cd ..
+
+echo ">>> CEM"
+cd CEM
+git checkout main
+git pull origin main
+cd ..
+
+echo ">>> DAE"
+cd DAE
+git checkout main
+git pull origin main
+cd ..
+
+echo ">>> Particles"
+cd Particles
+git checkout main
+git pull origin main
+cd ..
+
+echo ">>> NLA"
+cd NLA
+git checkout main
+git pull origin main
+cd ..
+
+echo ">>> PS"
+cd PS
+git checkout main
+git pull origin main
+cd ..
+
+cd ..
+git add docs
+git add toolkit/CFD
+git add toolkit/CEM
+git add toolkit/DAE
+git add toolkit/Particles
+git add toolkit/NLA
+git add toolkit/PS
+git commit -m 'update all submodules'
+git push origin main
